@@ -1,0 +1,35 @@
+applications:
+- name: cfsaml
+  instances: 1
+  memory: 896M
+  routes:
+    - route: cfsaml-((ID)).((LANDSCAPE_APPS_DOMAIN))
+  host: 
+  path: target/cfsaml-application.war
+  buildpacks:
+    - sap_java_buildpack
+  services:
+    - my-xsuaa
+    - my-destination
+  env:
+    SET_LOGGING_LEVEL: '{com.sap.xs.security: DEBUG, com.sap.cloud.security: DEBUG}'
+    ENABLE_SECURITY_JAVA_API_V2: true
+# Application Router as web server
+- name: approuter
+  path: approuter
+  buildpacks:
+    - nodejs_buildpack
+  memory: 128M
+  routes:
+    - route: approuter-((ID)).((LANDSCAPE_APPS_DOMAIN))
+  services:
+    - my-xsuaa
+  env:
+    destinations: >
+        [
+          {"name":"cfsaml-destination",
+          "url":"https://cfsaml-((ID)).((LANDSCAPE_APPS_DOMAIN))",
+          "forwardAuthToken": true}
+        ]
+    TENANT_HOST_PATTERN: 'approuter-(.*).cfapps.eu10.hana.ondemand.com'
+...

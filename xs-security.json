@@ -1,0 +1,29 @@
+{
+	"xsappname": "cfsaml",
+	"tenant-mode": "shared",
+	"scopes":
+	[{
+		"name": "$XSAPPNAME.Display",
+		"description": "With this scope, information can be read."
+	}
+	],
+
+	"role-templates":
+	[{
+		"name": "AccessRole",
+		"description": "Role to call the cfsaml service",
+		"scope-references":
+		[
+			"$XSAPPNAME.Display"
+		]
+	}
+	],
+	"role-collections": [{
+		"name": "Viewer",
+		"description": "Role Collection to call the cfsaml service",
+		"role-template-references": [
+			"$XSAPPNAME.AccessRole"
+		]
+	}
+	]
+}
