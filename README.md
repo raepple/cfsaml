@@ -28,7 +28,7 @@ Use the [xs-security.json](./xs-security.json) to define the authentication sett
 cf create-service xsuaa application my-xsuaa -c xs-security.json
 ```
 
-## Create the xsuaa service instance
+## Create the destination service instance
 Create another service instance for the destination service
 ```shell
 cf create-service destination lite my-destination
