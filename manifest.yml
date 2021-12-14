@@ -31,5 +31,5 @@ applications:
           "url":"https://cfsaml-((ID)).((LANDSCAPE_APPS_DOMAIN))",
           "forwardAuthToken": true}
         ]
-    TENANT_HOST_PATTERN: 'approuter-(.*).cfapps.eu10.hana.ondemand.com'
+    TENANT_HOST_PATTERN: 'approuter-(.*).((LANDSCAPE_APPS_DOMAIN))'
 ...
