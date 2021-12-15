@@ -27,6 +27,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Servlet implementation class HelloTokenServlet
@@ -37,6 +39,8 @@ import org.json.JSONTokener;
 @ServletSecurity(@HttpConstraint(rolesAllowed = { "Display" }))
 public class HelloTokenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+    private static final Logger logger = LoggerFactory.getLogger(HelloTokenServlet.class);
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -117,6 +121,9 @@ public class HelloTokenServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        logger.info("Content: " + content.toString());
+
         JSONObject obj = new JSONObject(new JSONTokener(content.toString()));
         JSONObject value = obj.getJSONArray("authTokens").getJSONObject(0);
         String token = value.getString("value");
